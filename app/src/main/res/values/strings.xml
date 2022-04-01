@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">greenflag_test_luis_sizzo</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="see_criteria_below">See criteria below</string>
+    <string name="create_a_password">Create a password</string>
+    <string name="email_address">Email address</string>
+    <string name="greenflag_customers_can_create_an_account_to_access">GreenFlag customers can create an account to access</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="your_password_should_have_a_minimum_of_8_characters_at_least_one_uppercase_letter_one_lowercase_letter_and_one_number_you_can_use_special_characters">Your password should have a minimum of 8 characters, at least one uppercase letter, one lowercase letter and one number. You can use special characters.</string>
+    <string name="policy_information">Policy information</string>
+    <string name="request_a_rescue_online">Request a rescue online</string>
+    <string name="car_health_update">Car health update</string>
+    <string name="do_you_want_to_return_to_the_previous_screen">Do you want to return to the previous screen?</string>
+</resources>
