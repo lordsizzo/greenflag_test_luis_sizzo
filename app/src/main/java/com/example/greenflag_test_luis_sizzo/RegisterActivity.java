@@ -191,27 +191,17 @@ public class RegisterActivity extends AppCompatActivity {
                     btnRegister.setEnabled(false);
                     btnRegister.setAlpha(0.5f);
                 }else{
+                    Usuario usuario = new Usuario(RegisterActivity.this);
+                    usuario.abrir();
+                    boolean check = usuario.checkUsuario(et_email.getText().toString());
+                    usuario.cerrar();
+                    if(et_passwordRepeat.getText().toString().equals(et_password.getText().toString()) && new Validations().isValidEmail(et_email.getText().toString()) && check){
+                        et_passwordRepeat.setBackground(getResources().getDrawable(R.drawable.success));
+                        et_passwordRepeat.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
+                        llPasswordAlertError.setVisibility(LinearLayout.GONE);
+                        btnRegister.setEnabled(true);
+                        btnRegister.setAlpha(1);
 
-                    if(new Validations().isValidPassword(et_passwordRepeat.getText().toString())){
-                        Usuario usuario = new Usuario(RegisterActivity.this);
-                        usuario.abrir();
-                        boolean check = usuario.checkUsuario(et_email.getText().toString());
-                        usuario.cerrar();
-                        if(et_passwordRepeat.getText().toString().equals(et_password.getText().toString()) && new Validations().isValidEmail(et_email.getText().toString()) && check){
-                            et_passwordRepeat.setBackground(getResources().getDrawable(R.drawable.success));
-                            et_passwordRepeat.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
-                            llPasswordAlertError.setVisibility(LinearLayout.GONE);
-                            btnRegister.setEnabled(true);
-                            btnRegister.setAlpha(1);
-
-                        }else{
-                            et_passwordRepeat.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                            et_passwordRepeat.setBackground(getResources().getDrawable(R.drawable.error));
-                            llPasswordAlertError.setVisibility(LinearLayout.VISIBLE);
-                            tvAlertErrorPassword.setText("Passwords do not match");
-                            btnRegister.setEnabled(false);
-                            btnRegister.setAlpha(0.5f);
-                        }
                     }else{
                         et_passwordRepeat.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                         et_passwordRepeat.setBackground(getResources().getDrawable(R.drawable.error));
