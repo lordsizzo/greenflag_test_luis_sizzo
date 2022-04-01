@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.greenflag_test_luis_sizzo.persistence.Usuario;
+import com.example.greenflag_test_luis_sizzo.persistence.SQLQueries;
 import com.example.greenflag_test_luis_sizzo.utils.Dialogs;
 import com.example.greenflag_test_luis_sizzo.utils.Validations;
 
@@ -78,13 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                     btnRegister.setAlpha(0.5f);
                 }else{
                     if(new Validations().isValidEmail(et_email.getText().toString())){
-                        Usuario usuario = new Usuario(RegisterActivity.this);
-                        usuario.abrir();
-                        boolean check = usuario.checkUsuario(et_email.getText().toString());
-                        String email = usuario.recibirUsuario();
-                        usuario.cerrar();
-
-                        if(email.isEmpty()){
+                        if(SQLQueries.checkAllUsuario(RegisterActivity.this).isEmpty()){
                             if(et_passwordRepeat.getText().toString().equals(et_password.getText().toString())){
                                 et_email.setBackground(getResources().getDrawable(R.drawable.success));
                                 et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
@@ -98,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         }else{
 
-                            if(et_passwordRepeat.getText().toString().equals(et_password.getText().toString()) && check){
+                            if(et_passwordRepeat.getText().toString().equals(et_password.getText().toString()) && SQLQueries.CheckUsuario(RegisterActivity.this, et_email.getText().toString())){
                                 et_email.setBackground(getResources().getDrawable(R.drawable.success));
                                 et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
                                 llEmailAlertError.setVisibility(LinearLayout.GONE);
@@ -109,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                                 et_email.setBackground(getResources().getDrawable(R.drawable.error));
                                 llEmailAlertError.setVisibility(LinearLayout.VISIBLE);
-                                if (!check) {
+                                if (!SQLQueries.CheckUsuario(RegisterActivity.this, et_email.getText().toString())) {
                                     tvAlertErrorEmail.setText("This email is already registered");
                                 }
                                 btnRegister.setEnabled(false);
@@ -191,11 +185,7 @@ public class RegisterActivity extends AppCompatActivity {
                     btnRegister.setEnabled(false);
                     btnRegister.setAlpha(0.5f);
                 }else{
-                    Usuario usuario = new Usuario(RegisterActivity.this);
-                    usuario.abrir();
-                    boolean check = usuario.checkUsuario(et_email.getText().toString());
-                    usuario.cerrar();
-                    if(et_passwordRepeat.getText().toString().equals(et_password.getText().toString()) && new Validations().isValidEmail(et_email.getText().toString()) && check){
+                    if(et_passwordRepeat.getText().toString().equals(et_password.getText().toString()) && new Validations().isValidEmail(et_email.getText().toString()) && SQLQueries.CheckUsuario(RegisterActivity.this, et_email.getText().toString())){
                         et_passwordRepeat.setBackground(getResources().getDrawable(R.drawable.success));
                         et_passwordRepeat.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
                         llPasswordAlertError.setVisibility(LinearLayout.GONE);
@@ -228,16 +218,10 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
         btnRegister.setOnClickListener(v -> {
-            Usuario usuario = new Usuario(RegisterActivity.this);
-            usuario.abrir();
-            boolean check = usuario.checkUsuario(et_email.getText().toString());
-            if (check) {
-                Toast.makeText(this, "Register Successfully", Toast.LENGTH_SHORT).show();
-                Usuario usuarioInsert = new Usuario(this);
-                usuarioInsert.abrir();
-                usuarioInsert.crearEntrada(et_email.getText().toString(), et_password.getText().toString());
-                usuarioInsert.cerrar();
 
+            if (SQLQueries.CheckUsuario(this, et_email.getText().toString())) {
+                Toast.makeText(this, "Register Successfully", Toast.LENGTH_SHORT).show();
+                SQLQueries.InsertUsuario(this, et_email.getText().toString(), et_passwordRepeat.getText().toString());
                 et_email.setText("");
                 et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                 et_email.setBackgroundColor(getResources().getColor(R.color.white));

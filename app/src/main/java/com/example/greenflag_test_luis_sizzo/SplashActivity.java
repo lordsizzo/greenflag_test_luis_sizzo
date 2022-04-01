@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.example.greenflag_test_luis_sizzo.persistence.Usuario;
-
 public class SplashActivity extends AppCompatActivity {
 
     private Button btnCreateAccount;
