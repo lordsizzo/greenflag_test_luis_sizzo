@@ -1,16 +1,11 @@
 package com.example.greenflag_test_luis_sizzo;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,10 +16,6 @@ import android.widget.Toast;
 import com.example.greenflag_test_luis_sizzo.persistence.Usuario;
 import com.example.greenflag_test_luis_sizzo.utils.Dialogs;
 import com.example.greenflag_test_luis_sizzo.utils.Validations;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -76,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+            @SuppressLint("SetTextI18n")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (et_email.getText().toString().isEmpty()) {
@@ -149,6 +141,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+            @SuppressLint("SetTextI18n")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (et_password.getText().toString().isEmpty()) {
@@ -188,6 +181,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+            @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (et_passwordRepeat.getText().toString().isEmpty()) {
