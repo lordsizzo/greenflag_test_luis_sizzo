@@ -104,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 et_email.setBackground(getResources().getDrawable(R.drawable.error));
                                 llEmailAlertError.setVisibility(LinearLayout.VISIBLE);
                                 if (!SQLQueries.CheckUsuario(RegisterActivity.this, et_email.getText().toString())) {
-                                    tvAlertErrorEmail.setText("This email is already registered");
+                                    tvAlertErrorEmail.setText("An account with this email already exists");
                                 }
                                 btnRegister.setEnabled(false);
                                 btnRegister.setAlpha(0.5f);
