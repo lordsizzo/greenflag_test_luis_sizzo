@@ -1,8 +1,8 @@
-package com.example.greenflag_test_luis_sizzo.persistence;
+package com.example.greenflag_test_luis_sizzo.local_db;
 
 import android.content.Context;
 
-import com.example.greenflag_test_luis_sizzo.persistence.sql.Usuario;
+import com.example.greenflag_test_luis_sizzo.local_db.sql.Usuario;
 
 public class SQLQueries{
 

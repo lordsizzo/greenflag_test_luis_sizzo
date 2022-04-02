@@ -8,10 +8,10 @@ import java.util.regex.Pattern;
 
 public class Validations {
 
-    public static boolean isValidEmail(CharSequence target) {
+    public static Boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
-    public static boolean isValidPassword(final String password) {
+    public static Boolean isValidPassword(final String password) {
 
         Pattern pattern;
         Matcher matcher;

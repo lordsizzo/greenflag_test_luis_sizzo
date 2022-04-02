@@ -26,14 +26,14 @@
             android:id="@+id/btnCancel"
             android:background="@color/white"
             android:layout_weight="1"
-            android:text="Cancel"
+            android:text="@string/btn_cancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnYes"
             android:background="@color/purple_700"
             android:layout_weight="1"
-            android:text="Yes"
+            android:text="@string/btn_yes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>

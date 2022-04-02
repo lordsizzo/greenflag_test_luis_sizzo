@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/backwithborder.xml" value="0.1815" />
+        <entry key="app/src/main/res/drawable/error.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/success.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/text_error.xml" value="0.1815" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />

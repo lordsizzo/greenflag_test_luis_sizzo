@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.greenflag_test_luis_sizzo.persistence.SQLQueries;
+import com.example.greenflag_test_luis_sizzo.local_db.SQLQueries;
 import com.example.greenflag_test_luis_sizzo.utils.Dialogs;
 import com.example.greenflag_test_luis_sizzo.utils.Validations;
 
@@ -218,25 +218,29 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
         btnRegister.setOnClickListener(v -> {
-
             if (SQLQueries.CheckUsuario(this, et_email.getText().toString())) {
                 Toast.makeText(this, "Register Successfully", Toast.LENGTH_SHORT).show();
-                SQLQueries.InsertUsuario(this, et_email.getText().toString(), et_passwordRepeat.getText().toString());
-                et_email.setText("");
-                et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                et_email.setBackgroundColor(getResources().getColor(R.color.white));
-                et_password.setText("");
-                et_password.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                et_password.setBackgroundColor(getResources().getColor(R.color.white));
-                et_passwordRepeat.setText("");
-                et_passwordRepeat.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                et_passwordRepeat.setBackgroundColor(getResources().getColor(R.color.white));
-                btnRegister.setEnabled(false);
-                btnRegister.setAlpha(0.5f);
+                makeRegister();
             }else{
                 Toast.makeText(this, "The registration was failed", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void makeRegister(){
+
+        SQLQueries.InsertUsuario(this, et_email.getText().toString(), et_passwordRepeat.getText().toString());
+        et_email.setText("");
+        et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        et_email.setBackgroundColor(getResources().getColor(R.color.white));
+        et_password.setText("");
+        et_password.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        et_password.setBackgroundColor(getResources().getColor(R.color.white));
+        et_passwordRepeat.setText("");
+        et_passwordRepeat.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        et_passwordRepeat.setBackgroundColor(getResources().getColor(R.color.white));
+        btnRegister.setEnabled(false);
+        btnRegister.setAlpha(0.5f);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.greenflag_test_luis_sizzo.persistence.sql;
+package com.example.greenflag_test_luis_sizzo.local_db.sql;
 
 import android.content.ContentValues;
 import android.content.Context;

@@ -20,4 +20,6 @@
     <string name="request_a_rescue_online">Request a rescue online</string>
     <string name="car_health_update">Car health update</string>
     <string name="do_you_want_to_return_to_the_previous_screen">Do you want to return to the previous screen?</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_yes">Yes</string>
 </resources>
