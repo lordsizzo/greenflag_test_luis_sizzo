@@ -31,6 +31,10 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView tvAlertErrorPassword;
     private TextView tvAlertErrorEmail;
 
+    private Boolean isValidEmail = false, isValidPassword = false;
+
+    private Validations validations = new Validations();
+
 
     private Button btnRegister;
     @Override
@@ -70,48 +74,39 @@ public class RegisterActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                et_password.setText("");
+                et_passwordRepeat.setText("");
                 if (et_email.getText().toString().isEmpty()) {
                     et_email.setBackgroundColor(getResources().getColor(R.color.white));
                     et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                     llEmailAlertError.setVisibility(LinearLayout.GONE);
                     btnRegister.setEnabled(false);
                     btnRegister.setAlpha(0.5f);
+                    isValidEmail = false;
                 }else{
-                    if(new Validations().isValidEmail(et_email.getText().toString())){
+                    if(validations.isValidEmail(et_email.getText().toString())){
                         if(SQLQueries.checkAllUsuario(RegisterActivity.this).isEmpty()){
-                            if(et_passwordRepeat.getText().toString().equals(et_password.getText().toString())){
-                                et_email.setBackground(getResources().getDrawable(R.drawable.success));
-                                et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
-                                llEmailAlertError.setVisibility(LinearLayout.GONE);
-                                btnRegister.setEnabled(true);
-                                btnRegister.setAlpha(1);
+                            et_email.setBackground(getResources().getDrawable(R.drawable.success));
+                            et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
+                            llEmailAlertError.setVisibility(LinearLayout.GONE);
 
-                            }else{
-                                btnRegister.setEnabled(false);
-                                btnRegister.setAlpha(0.5f);
-                            }
+                            isValidEmail = true;
                         }else{
-
-                            if(et_passwordRepeat.getText().toString().equals(et_password.getText().toString()) && SQLQueries.CheckUsuario(RegisterActivity.this, et_email.getText().toString())){
-                                et_email.setBackground(getResources().getDrawable(R.drawable.success));
-                                et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
-                                llEmailAlertError.setVisibility(LinearLayout.GONE);
-                                btnRegister.setEnabled(true);
-                                btnRegister.setAlpha(1);
-
-                            }else{
+                            if (!SQLQueries.CheckUsuario(RegisterActivity.this, et_email.getText().toString())) {
+                                tvAlertErrorEmail.setText("An account with this email already exists");
                                 et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                                 et_email.setBackground(getResources().getDrawable(R.drawable.error));
                                 llEmailAlertError.setVisibility(LinearLayout.VISIBLE);
-                                if (!SQLQueries.CheckUsuario(RegisterActivity.this, et_email.getText().toString())) {
-                                    tvAlertErrorEmail.setText("An account with this email already exists");
-                                }
                                 btnRegister.setEnabled(false);
                                 btnRegister.setAlpha(0.5f);
-
+                                isValidEmail = false;
+                            }else{
+                                et_email.setBackground(getResources().getDrawable(R.drawable.success));
+                                et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
+                                llEmailAlertError.setVisibility(LinearLayout.GONE);
+                                isValidEmail = true;
                             }
                         }
-
                     }else{
                         et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                         et_email.setBackground(getResources().getDrawable(R.drawable.error));
@@ -119,6 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                         tvAlertErrorEmail.setText("Invalid Email");
                         btnRegister.setEnabled(false);
                         btnRegister.setAlpha(0.5f);
+                        isValidEmail = false;
                     }
                 }
             }
@@ -146,7 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
                     btnRegister.setAlpha(0.5f);
                     et_passwordRepeat.setText("");
                 }else{
-                    if(new Validations().isValidPassword(et_password.getText().toString())){
+                    if(validations.isValidPassword(et_password.getText().toString())){
                         et_password.setBackground(getResources().getDrawable(R.drawable.success));
                         et_password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
                         llPasswordAlertError.setVisibility(LinearLayout.GONE);
@@ -185,7 +181,7 @@ public class RegisterActivity extends AppCompatActivity {
                     btnRegister.setEnabled(false);
                     btnRegister.setAlpha(0.5f);
                 }else{
-                    if(et_passwordRepeat.getText().toString().equals(et_password.getText().toString()) && new Validations().isValidEmail(et_email.getText().toString()) && SQLQueries.CheckUsuario(RegisterActivity.this, et_email.getText().toString())){
+                    if(et_passwordRepeat.getText().toString().equals(et_password.getText().toString()) && isValidEmail){
                         et_passwordRepeat.setBackground(getResources().getDrawable(R.drawable.success));
                         et_passwordRepeat.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
                         llPasswordAlertError.setVisibility(LinearLayout.GONE);
@@ -193,10 +189,14 @@ public class RegisterActivity extends AppCompatActivity {
                         btnRegister.setAlpha(1);
 
                     }else{
+                        tvAlertErrorPassword.setText("Passwords do not match");
+                        if(!isValidEmail){
+                            tvAlertErrorPassword.setText("Email is not valid or already in use");
+                        }
                         et_passwordRepeat.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                         et_passwordRepeat.setBackground(getResources().getDrawable(R.drawable.error));
                         llPasswordAlertError.setVisibility(LinearLayout.VISIBLE);
-                        tvAlertErrorPassword.setText("Passwords do not match");
+
                         btnRegister.setEnabled(false);
                         btnRegister.setAlpha(0.5f);
                     }
@@ -218,7 +218,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
         btnRegister.setOnClickListener(v -> {
-            if (SQLQueries.CheckUsuario(this, et_email.getText().toString())) {
+            if (isValidEmail && isValidPassword) {
                 Toast.makeText(this, "Register Successfully", Toast.LENGTH_SHORT).show();
                 makeRegister();
             }else{
