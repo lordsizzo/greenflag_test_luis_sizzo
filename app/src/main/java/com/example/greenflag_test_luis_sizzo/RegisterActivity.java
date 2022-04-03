@@ -76,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 et_password.setText("");
                 et_passwordRepeat.setText("");
+                isValidPassword = false;
                 if (et_email.getText().toString().isEmpty()) {
                     et_email.setBackgroundColor(getResources().getColor(R.color.white));
                     et_email.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -141,11 +142,13 @@ public class RegisterActivity extends AppCompatActivity {
                     btnRegister.setEnabled(false);
                     btnRegister.setAlpha(0.5f);
                     et_passwordRepeat.setText("");
+                    isValidPassword = false;
                 }else{
                     if(validations.isValidPassword(et_password.getText().toString())){
                         et_password.setBackground(getResources().getDrawable(R.drawable.success));
                         et_password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tick, 0);
                         llPasswordAlertError.setVisibility(LinearLayout.GONE);
+                        isValidPassword = false;
                     }else{
                         et_password.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                         et_password.setBackground(getResources().getDrawable(R.drawable.error));
@@ -154,6 +157,7 @@ public class RegisterActivity extends AppCompatActivity {
                         btnRegister.setEnabled(false);
                         btnRegister.setAlpha(0.5f);
                         et_passwordRepeat.setText("");
+                        isValidPassword = false;
                     }
                 }
             }
@@ -180,6 +184,7 @@ public class RegisterActivity extends AppCompatActivity {
                     llPasswordAlertError.setVisibility(LinearLayout.GONE);
                     btnRegister.setEnabled(false);
                     btnRegister.setAlpha(0.5f);
+                    isValidPassword = false;
                 }else{
                     if(et_passwordRepeat.getText().toString().equals(et_password.getText().toString()) && isValidEmail){
                         et_passwordRepeat.setBackground(getResources().getDrawable(R.drawable.success));
@@ -187,6 +192,7 @@ public class RegisterActivity extends AppCompatActivity {
                         llPasswordAlertError.setVisibility(LinearLayout.GONE);
                         btnRegister.setEnabled(true);
                         btnRegister.setAlpha(1);
+                        isValidPassword = true;
 
                     }else{
                         tvAlertErrorPassword.setText("Passwords do not match");
@@ -199,6 +205,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         btnRegister.setEnabled(false);
                         btnRegister.setAlpha(0.5f);
+                        isValidPassword = false;
                     }
                 }
             }
